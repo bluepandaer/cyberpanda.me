@@ -38,7 +38,7 @@ convert -background transparent apple-touch-icon.svg -resize 180x180 src/assets/
   - https://www.favicon-generator.org/
 - **PNG 生成**：
 
-  - https://convertio.co/svg-png/
+  - ![1753188701249](images/FAVICON_INSTRUCTIONS/1753188701249.png)https://convertio.co/svg-png/
   - https://cloudconvert.com/svg-to-png
 
 ### 4. 使用步骤
