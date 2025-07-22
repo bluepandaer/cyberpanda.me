@@ -61,75 +61,96 @@ const route = getRouteFromUrl(Astro.url);
   </div>
 </div>
 
-<script>
-  // Language picker functionality
-  function initLanguagePicker() {
-    const toggle = document.getElementById('language-toggle');
-    const menu = document.getElementById('language-menu');
-    const chevron = document.getElementById('chevron-icon');
+<script is:inline>
+  // Language picker functionality - inline script to ensure immediate execution
+  (function() {
+    let isInitialized = false;
     
-    if (!toggle || !menu || !chevron) return;
-    
-    function showMenu() {
-      menu.classList.remove('opacity-0', 'invisible', 'scale-95');
-      menu.classList.add('opacity-100', 'visible', 'scale-100');
-      chevron.style.transform = 'rotate(180deg)';
-      toggle.setAttribute('aria-expanded', 'true');
-    }
-    
-    function hideMenu() {
-      menu.classList.remove('opacity-100', 'visible', 'scale-100');
-      menu.classList.add('opacity-0', 'invisible', 'scale-95');
-      chevron.style.transform = 'rotate(0deg)';
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-    
-    // Toggle menu on button click
-    toggle.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      const isVisible = menu.classList.contains('visible');
-      if (isVisible) {
-        hideMenu();
-      } else {
-        showMenu();
+    function initLanguagePicker() {
+      if (isInitialized) return;
+      
+      const toggle = document.getElementById('language-toggle');
+      const menu = document.getElementById('language-menu');
+      const chevron = document.getElementById('chevron-icon');
+      
+      if (!toggle || !menu || !chevron) {
+        // Retry after a short delay if elements aren't ready
+        setTimeout(initLanguagePicker, 100);
+        return;
       }
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!toggle.contains(e.target as Node) && !menu.contains(e.target as Node)) {
-        hideMenu();
+      
+      isInitialized = true;
+      
+      function showMenu() {
+        menu.classList.remove('opacity-0', 'invisible', 'scale-95');
+        menu.classList.add('opacity-100', 'visible', 'scale-100');
+        chevron.style.transform = 'rotate(180deg)';
+        toggle.setAttribute('aria-expanded', 'true');
       }
-    });
-    
-    // Close menu on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menu.classList.contains('visible')) {
-        hideMenu();
-        toggle.focus();
+      
+      function hideMenu() {
+        menu.classList.remove('opacity-100', 'visible', 'scale-100');
+        menu.classList.add('opacity-0', 'invisible', 'scale-95');
+        chevron.style.transform = 'rotate(0deg)';
+        toggle.setAttribute('aria-expanded', 'false');
       }
-    });
-    
-    // Handle language selection
-    const langLinks = menu.querySelectorAll('[data-lang]');
-    langLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        const lang = (e.currentTarget as HTMLElement).dataset.lang;
-        if (lang) {
-          // Save language preference
-          localStorage.setItem('preferred-lang', lang);
-          // The navigation will happen naturally via the href
+      
+      // Toggle menu on button click
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const isVisible = menu.classList.contains('visible');
+        if (isVisible) {
+          hideMenu();
+        } else {
+          showMenu();
         }
       });
+      
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+          hideMenu();
+        }
+      });
+      
+      // Close menu on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('visible')) {
+          hideMenu();
+          toggle.focus();
+        }
+      });
+      
+      // Handle language selection
+      const langLinks = menu.querySelectorAll('[data-lang]');
+      langLinks.forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          const lang = e.currentTarget.dataset.lang;
+          if (lang) {
+            localStorage.setItem('preferred-lang', lang);
+          }
+        });
+      });
+    }
+    
+    // Try to initialize immediately
+    initLanguagePicker();
+    
+    // Also try on DOMContentLoaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLanguagePicker);
+    }
+    
+    // Fallback: initialize on window load
+    window.addEventListener('load', initLanguagePicker);
+    
+    // Re-initialize on Astro page transitions
+    document.addEventListener('astro:page-load', function() {
+      isInitialized = false;
+      initLanguagePicker();
     });
-  }
-  
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', initLanguagePicker);
-  
-  // Re-initialize on navigation (for SPA-like behavior)
-  document.addEventListener('astro:page-load', initLanguagePicker);
+  })();
 </script>
 
 <style>
