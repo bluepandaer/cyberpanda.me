@@ -1,0 +1,240 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+
+import Hero from '~/components/widgets/Hero.astro';
+import Note from '~/components/widgets/Note.astro';
+import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import Content from '~/components/widgets/Content.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+
+import { languages } from '~/i18n/config';
+import { useTranslations, getLangFromUrl } from '~/i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
+const metadata = {
+  title: t('meta.home.title'),
+  description: t('meta.home.description'),
+  ignoreTitleTemplate: true,
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <!-- Hero Widget ******************* -->
+  <Hero
+    actions={[
+      {
+        variant: 'primary',
+        text: t('hero.cta.explore'),
+        href: `/${lang}/blog`,
+        icon: 'tabler:rocket',
+      },
+      { 
+        text: t('hero.cta.subscribe'), 
+        href: `/${lang}/contact` 
+      },
+    ]}
+    image={{ src: '~/assets/images/hero-image.png', alt: 'CyberPanda Hero Image' }}
+  >
+    <Fragment slot="title">
+      {lang === 'zh' ? (
+        <>
+          <span class="text-accent dark:text-white">AI改变生活</span>的每一天
+        </>
+      ) : (
+        <>
+          <span class="text-accent dark:text-white">AI Changes</span> Life Every Day
+        </>
+      )}
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      {t('hero.subtitle')}
+    </Fragment>
+  </Hero>
+
+  <!-- Note Widget ******************* -->
+  <Note 
+    title={lang === 'zh' ? '理念：' : 'Philosophy:'} 
+    description={lang === 'zh' ? '简单易用，实用为先，高效学习' : 'Simplicity, Practicality and Efficient Learning'} 
+  />
+
+  <!-- Features Widget *************** -->
+  <Features
+    id="features"
+    tagline={lang === 'zh' ? '特色功能' : 'Features'}
+    title={lang === 'zh' ? '为什么选择CyberPanda？' : 'Why Choose CyberPanda?'}
+    subtitle={t('features.subtitle')}
+    items={
+      lang === 'zh' ? [
+        {
+          title: 'ChatGPT 实用技巧',
+          description: '深度解析ChatGPT的使用技巧，从基础到高级，让AI成为你的得力助手。',
+          icon: 'tabler:brain',
+        },
+        {
+          title: 'Claude 使用指南',
+          description: '全面的Claude使用教程，包括对话技巧、文档分析、编程助手等实用场景。',
+          icon: 'tabler:robot',
+        },
+        {
+          title: 'Midjourney 创作秘籍',
+          description: '掌握Midjourney的提示词技巧，创作出令人惊艳的AI艺术作品。',
+          icon: 'tabler:palette',
+        },
+        {
+          title: '前沿AI工具评测',
+          description: '第一时间体验和评测最新的AI工具，为你筛选出真正有用的神器。',
+          icon: 'tabler:tools',
+        },
+        {
+          title: '工作流程优化',
+          description: '通过AI工具优化工作流程，提升工作效率，实现智能化办公。',
+          icon: 'tabler:trending-up',
+        },
+        {
+          title: '技术分享交流',
+          description: '分享AI技术的最新动态，与志同道合的朋友一起探索AI的无限可能。',
+          icon: 'tabler:users',
+        },
+      ] : [
+        {
+          title: 'ChatGPT Practical Tips',
+          description: 'In-depth analysis of ChatGPT usage techniques, from basic to advanced, making AI your powerful assistant.',
+          icon: 'tabler:brain',
+        },
+        {
+          title: 'Claude Usage Guide',
+          description: 'Comprehensive Claude tutorials including conversation skills, document analysis, programming assistance and more.',
+          icon: 'tabler:robot',
+        },
+        {
+          title: 'Midjourney Creation Secrets',
+          description: 'Master Midjourney prompt techniques to create stunning AI artwork that amazes.',
+          icon: 'tabler:palette',
+        },
+        {
+          title: 'Latest AI Tool Reviews',
+          description: 'First-hand experience and reviews of the newest AI tools, filtering out truly useful gems for you.',
+          icon: 'tabler:tools',
+        },
+        {
+          title: 'Workflow Optimization',
+          description: 'Optimize workflows with AI tools, boost work efficiency, and achieve intelligent office automation.',
+          icon: 'tabler:trending-up',
+        },
+        {
+          title: 'Tech Sharing & Exchange',
+          description: 'Share the latest AI technology trends and explore infinite possibilities with like-minded friends.',
+          icon: 'tabler:users',
+        },
+      ]
+    }
+  />
+
+  <!-- Content Widget **************** -->
+  <Content
+    isReversed
+    tagline={lang === 'zh' ? '专业指南' : 'Expert Guide'}
+    title={lang === 'zh' ? 'CyberPanda：让AI成为你的超能力！' : 'CyberPanda: Make AI Your Superpower!'}
+    items={
+      lang === 'zh' ? [
+        {
+          title: '基于Astro 5.0构建',
+          description: '采用现代静态网站生成器，确保快速加载和优秀的用户体验。',
+        },
+        {
+          title: 'Tailwind CSS样式',
+          description: '使用流行的实用程序优先CSS框架，实现快速设计和一致的样式。',
+        },
+        {
+          title: '跨浏览器兼容',
+          description: '确保网站在各种浏览器中的外观和功能一致，为所有用户提供无缝体验。',
+        },
+      ] : [
+        {
+          title: 'Built on Astro 5.0',
+          description: 'Using modern static site generator for fast loading and excellent user experience.',
+        },
+        {
+          title: 'Styled with Tailwind CSS',
+          description: 'Using popular utility-first CSS framework for rapid design and consistent styling.',
+        },
+        {
+          title: 'Cross-browser Compatible',
+          description: 'Ensuring consistent appearance and functionality across various browsers for all users.',
+        },
+      ]
+    }
+    image={{
+      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'AI Technology Image',
+    }}
+  >
+    <Fragment slot="content">
+      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+        {lang === 'zh' ? '构建在现代技术基础上' : 'Building on Modern Foundations'}
+      </h3>
+      {lang === 'zh' ? '通过融合行业领先实践获得竞争优势' : 'Gain competitive advantage by incorporating industry-leading practices'}
+    </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- BlogLatestPosts Widget ******* -->
+  <BlogLatestPosts
+    title={t('blog.title')}
+    information={
+      lang === 'zh' 
+        ? '博客用于分享最新的AI工具使用技巧和行业趋势。每一篇新文章都将是你成为AI专家路上的重要一步，涵盖ChatGPT、Claude、Midjourney等热门工具的实战指南。'
+        : 'The blog is used to share the latest AI tool tips and industry trends. Each new article will be an important step on your journey to becoming an AI expert, covering practical guides for popular tools like ChatGPT, Claude, Midjourney and more.'
+    }
+  />
+
+  <!-- Stats Widget ****************** -->
+  <Stats
+    stats={[
+      { title: lang === 'zh' ? '文章数量' : 'Articles', amount: '50+' },
+      { title: lang === 'zh' ? '读者' : 'Readers', amount: '10K+' },
+      { title: lang === 'zh' ? 'AI工具' : 'AI Tools', amount: '100+' },
+      { title: lang === 'zh' ? '用户满意度' : 'Satisfaction', amount: '98%' },
+    ]}
+  />
+
+  <!-- CallToAction Widget *********** -->
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: t('hero.cta.explore'),
+        href: `/${lang}/blog`,
+        icon: 'tabler:rocket',
+      },
+    ]}
+  >
+    <Fragment slot="title">
+      CyberPanda&nbsp;<br class="block sm:hidden" />
+      <span class="sm:whitespace-nowrap">{lang === 'zh' ? '赛博熊猫' : 'AI Explorer'}</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      {lang === 'zh' 
+        ? '开启你的AI探索之旅，掌握未来工作技能！' 
+        : 'Start your AI exploration journey and master future work skills!'}
+    </Fragment>
+  </CallToAction>
+</Layout>

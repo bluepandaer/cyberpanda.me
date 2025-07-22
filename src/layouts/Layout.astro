@@ -16,17 +16,24 @@ import BasicScripts from '~/components/common/BasicScripts.astro';
 import { ClientRouter } from 'astro:transitions';
 
 import type { MetaData as MetaDataType } from '~/types';
+import { getLangFromUrl, getLanguageAlternates } from '~/i18n/utils';
+import { languages } from '~/i18n/config';
 
 export interface Props {
   metadata?: MetaDataType;
+  lang?: string;
 }
 
-const { metadata = {} } = Astro.props;
+const { metadata = {}, lang } = Astro.props;
+const currentLang = lang || getLangFromUrl(Astro.url);
 const { language, textDirection } = I18N;
+
+// Generate alternate language URLs for hreflang
+const alternates = getLanguageAlternates(Astro.url, currentLang);
 ---
 
 <!doctype html>
-<html lang={language} dir={textDirection} class="2xl:text-[20px]">
+<html lang={currentLang} dir={textDirection} class="2xl:text-[20px]">
   <head>
     <CommonMeta />
     <Favicons />
@@ -35,6 +42,19 @@ const { language, textDirection } = I18N;
     <Metadata {...metadata} />
     <SiteVerification />
     <Analytics />
+
+    <!-- Multilingual SEO: hreflang tags -->
+    <link rel="alternate" hreflang={currentLang} href={Astro.url.href} />
+    {alternates.map(({ lang, url }) => (
+      <link rel="alternate" hreflang={lang} href={url} />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`${Astro.url.origin}/zh`} />
+
+    <!-- Open Graph language tags -->
+    <meta property="og:locale" content={currentLang === 'zh' ? 'zh_CN' : 'en_US'} />
+    {alternates.map(({ lang }) => (
+      <meta property="og:locale:alternate" content={lang === 'zh' ? 'zh_CN' : 'en_US'} />
+    ))}
 
     <!-- Comment the line below to disable View Transitions -->
     <ClientRouter fallback="swap" />

@@ -1,0 +1,144 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { languages } from '~/i18n/config';
+import { useTranslations } from '~/i18n/utils';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  try {
+    const allPosts = await getCollection('post');
+    console.log(`Found ${allPosts.length} posts`);
+    
+    const paths = [];
+    
+    for (const lang of Object.keys(languages)) {
+      const langPosts = allPosts.filter(post => {
+        const postLang = post.data?.lang || 'zh'; // Default to zh if no lang specified
+        return postLang === lang;
+      });
+      
+      console.log(`Language ${lang}: ${langPosts.length} posts`);
+      
+      for (const post of langPosts) {
+        // For glob loader, use id to create slug
+        const actualSlug = post.id.replace(/\.(md|mdx)$/, ''); // Remove file extension
+        
+        paths.push({
+          params: { 
+            lang: lang,
+            slug: actualSlug
+          },
+          props: { post }
+        });
+        console.log(`Added path: /${lang}/blog/${actualSlug} (from ${post.id})`);
+      }
+    }
+    
+    console.log(`Generated ${paths.length} blog post paths total`);
+    return paths;
+  } catch (error) {
+    console.error('Error generating blog post paths:', error);
+    return [];
+  }
+}
+
+interface Props {
+  post: CollectionEntry<'post'>;
+}
+
+const { lang } = Astro.params;
+const { post } = Astro.props;
+const t = useTranslations(lang);
+
+// Render the post content using the render function
+const { Content } = await render(post);
+
+const metadata = {
+  title: post.data.title,
+  description: post.data.excerpt,
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: 'article',
+  },
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <article class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <!-- Back to Blog Link -->
+    <div class="mb-8">
+      <a href={`/${lang}/blog`} class="inline-flex items-center text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 transition-colors">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        {t('blog.backToBlog')}
+      </a>
+    </div>
+
+    <!-- Article Header -->
+    <header class="mb-8">
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        {post.data.title}
+      </h1>
+      
+      {post.data.excerpt && (
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-6">
+          {post.data.excerpt}
+        </p>
+      )}
+      
+      <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 pb-6">
+        <div class="flex items-center">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <time datetime={post.data.publishDate?.toISOString()}>
+            {t('blog.publishedOn')} {post.data.publishDate?.toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US')}
+          </time>
+        </div>
+        
+        {post.data.author && (
+          <div class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+            {post.data.author}
+          </div>
+        )}
+        
+        {post.data.category && (
+          <span class="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 px-3 py-1 rounded-full">
+            {post.data.category}
+          </span>
+        )}
+      </div>
+
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mt-4">
+          {post.data.tags.map((tag) => (
+            <span class="text-sm bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+
+    <!-- Article Content -->
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <Content />
+    </div>
+
+    <!-- Article Footer -->
+    <footer class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <div class="text-center">
+        <a href={`/${lang}/blog`} class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors">
+          {t('blog.backToBlog')}
+        </a>
+      </div>
+    </footer>
+  </article>
+</Layout>

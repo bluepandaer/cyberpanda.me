@@ -1,0 +1,161 @@
+---
+import { languages } from '~/i18n/config';
+import { getLangFromUrl, getRouteFromUrl, getLocalizedUrl } from '~/i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+const route = getRouteFromUrl(Astro.url);
+---
+
+<div class="language-picker relative" data-language-picker>
+  <button
+    id="language-toggle"
+    class="flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+    aria-label="Select language"
+    aria-expanded="false"
+    aria-haspopup="true"
+  >
+    <!-- Globe icon -->
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+            d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span class="hidden sm:inline text-sm font-medium">{languages[currentLang]}</span>
+    <!-- Chevron down icon -->
+    <svg class="w-4 h-4 transition-transform duration-200" id="chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+  
+  <div
+    id="language-menu"
+    class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible transform scale-95 transition-all duration-200 z-50"
+    role="menu"
+    aria-labelledby="language-toggle"
+  >
+    {Object.entries(languages).map(([code, name]) => {
+      const href = getLocalizedUrl(`/${route}`, code as any, currentLang);
+      const isActive = currentLang === code;
+      
+      return (
+        <a
+          href={href}
+          class={`block px-4 py-3 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg ${
+            isActive 
+              ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 font-medium' 
+              : 'text-gray-700 dark:text-gray-300'
+          }`}
+          role="menuitem"
+          data-lang={code}
+        >
+          <div class="flex items-center justify-between">
+            <span>{name}</span>
+            {isActive && (
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+            )}
+          </div>
+        </a>
+      );
+    })}
+  </div>
+</div>
+
+<script>
+  // Language picker functionality
+  function initLanguagePicker() {
+    const toggle = document.getElementById('language-toggle');
+    const menu = document.getElementById('language-menu');
+    const chevron = document.getElementById('chevron-icon');
+    
+    if (!toggle || !menu || !chevron) return;
+    
+    function showMenu() {
+      menu.classList.remove('opacity-0', 'invisible', 'scale-95');
+      menu.classList.add('opacity-100', 'visible', 'scale-100');
+      chevron.style.transform = 'rotate(180deg)';
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    
+    function hideMenu() {
+      menu.classList.remove('opacity-100', 'visible', 'scale-100');
+      menu.classList.add('opacity-0', 'invisible', 'scale-95');
+      chevron.style.transform = 'rotate(0deg)';
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    
+    // Toggle menu on button click
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isVisible = menu.classList.contains('visible');
+      if (isVisible) {
+        hideMenu();
+      } else {
+        showMenu();
+      }
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+        hideMenu();
+      }
+    });
+    
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('visible')) {
+        hideMenu();
+        toggle.focus();
+      }
+    });
+    
+    // Handle language selection
+    const langLinks = menu.querySelectorAll('[data-lang]');
+    langLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const lang = (e.currentTarget as HTMLElement).dataset.lang;
+        if (lang) {
+          // Save language preference
+          localStorage.setItem('preferred-lang', lang);
+          // The navigation will happen naturally via the href
+        }
+      });
+    });
+  }
+  
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', initLanguagePicker);
+  
+  // Re-initialize on navigation (for SPA-like behavior)
+  document.addEventListener('astro:page-load', initLanguagePicker);
+</script>
+
+<style>
+  .language-picker {
+    position: relative;
+    z-index: 50;
+  }
+  
+  /* Ensure proper stacking context */
+  #language-menu {
+    z-index: 9999;
+  }
+  
+  /* Smooth transitions */
+  #language-menu a {
+    transition: all 0.15s ease-in-out;
+  }
+  
+  /* Focus styles for accessibility */
+  #language-toggle:focus {
+    outline: 2px solid rgb(var(--aw-color-primary) / 0.5);
+    outline-offset: 2px;
+  }
+  
+  #language-menu a:focus {
+    outline: 2px solid rgb(var(--aw-color-primary) / 0.5);
+    outline-offset: -2px;
+  }
+</style>

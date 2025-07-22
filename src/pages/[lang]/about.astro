@@ -1,0 +1,184 @@
+---
+import Features2 from '~/components/widgets/Features2.astro';
+import Features3 from '~/components/widgets/Features3.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Stats from '~/components/widgets/Stats.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import { languages } from '~/i18n/config';
+import { useTranslations } from '~/i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
+const metadata = {
+  title: t('nav.about'),
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <!-- Hero Widget ******************* -->
+  <Hero
+    tagline={t('nav.about')}
+    image={{
+      src: 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      alt: 'About CyberPanda',
+    }}
+  >
+    <Fragment slot="title">
+      {lang === 'zh' ? (
+        <>
+          探索AI世界的 <br />
+          <span class="text-accent dark:text-white">赛博熊猫</span>
+        </>
+      ) : (
+        <>
+          Meet <br />
+          <span class="text-accent dark:text-white">CyberPanda</span> - Your AI Guide
+        </>
+      )}
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      {lang === 'zh' 
+        ? '我是一名专注于AI技术分享的自媒体创作者，致力于让每个人都能轻松掌握AI工具，让技术真正服务于生活。通过实用的教程和深度的技术解析，我希望能成为你在AI探索路上的可靠伙伴。'
+        : 'I am a content creator focused on AI technology sharing, dedicated to making AI tools accessible to everyone and ensuring technology truly serves life. Through practical tutorials and in-depth technical analysis, I hope to be your reliable companion on your AI exploration journey.'
+      }
+    </Fragment>
+  </Hero>
+
+  <!-- Stats Widget ****************** -->
+  <Stats
+    title={lang === 'zh' ? '我的成果' : 'My Achievements'}
+    stats={[
+      { title: lang === 'zh' ? '原创文章' : 'Articles', amount: '50+' },
+      { title: lang === 'zh' ? '读者关注' : 'Followers', amount: '10K+' },
+      { title: lang === 'zh' ? 'AI工具体验' : 'AI Tools', amount: '100+' },
+      { title: lang === 'zh' ? '创作年限' : 'Years Active', amount: '2+' },
+    ]}
+  />
+
+  <!-- Features3 Widget ************** -->
+  <Features3
+    title={lang === 'zh' ? '我的专业领域' : 'My Expertise'}
+    subtitle={
+      lang === 'zh' 
+        ? '专注于AI工具的实际应用，从入门到精通，为不同需求的用户提供针对性的指导和建议。'
+        : 'Focusing on practical applications of AI tools, from beginner to expert level, providing targeted guidance and advice for users with different needs.'
+    }
+    columns={3}
+    isBeforeContent={true}
+    items={
+      lang === 'zh' ? [
+        {
+          title: 'ChatGPT深度应用',
+          description: '深入挖掘ChatGPT的潜力，从日常对话到专业写作，从问题解决到创意激发，全方位掌握使用技巧。',
+          icon: 'tabler:brain',
+        },
+        {
+          title: 'Claude智能助手',
+          description: '探索Claude的强大功能，包括文档分析、编程辅助、逻辑推理等高级应用场景。',
+          icon: 'tabler:robot',
+        },
+        {
+          title: 'Midjourney艺术创作',
+          description: '掌握AI艺术创作的精髓，学会用提示词创造令人惊艳的视觉作品。',
+          icon: 'tabler:palette',
+        },
+      ] : [
+        {
+          title: 'ChatGPT Deep Applications',
+          description: 'Deep dive into ChatGPT potential, from daily conversations to professional writing, from problem-solving to creative inspiration.',
+          icon: 'tabler:brain',
+        },
+        {
+          title: 'Claude AI Assistant',
+          description: 'Explore Claude powerful features including document analysis, programming assistance, logical reasoning and advanced applications.',
+          icon: 'tabler:robot',
+        },
+        {
+          title: 'Midjourney Art Creation',
+          description: 'Master the essence of AI art creation, learn to create stunning visual works with prompts.',
+          icon: 'tabler:palette',
+        },
+      ]
+    }
+  />
+
+  <!-- Steps2 Widget ****************** -->
+  <Steps2
+    title={lang === 'zh' ? '我的价值观' : 'My Values'}
+    subtitle={
+      lang === 'zh' 
+        ? '在AI技术日新月异的时代，我始终坚持以用户为中心的理念，用最简单易懂的方式分享最前沿的技术。'
+        : 'In an era of rapid AI advancement, I always adhere to a user-centered philosophy, sharing cutting-edge technology in the most accessible way.'
+    }
+    items={
+      lang === 'zh' ? [
+        {
+          title: '实用至上',
+          description: '不追求花哨的技术展示，专注于分享真正能解决实际问题、提升工作效率的AI应用方法。',
+        },
+        {
+          title: '持续学习',
+          description: 'AI领域变化迅速，我始终保持学习的热情，第一时间体验新工具，为读者筛选出真正有价值的内容。',
+        },
+        {
+          title: '开放分享',
+          description: '相信知识的力量在于分享，通过开放透明的交流，让更多人受益于AI技术的进步。',
+        },
+      ] : [
+        {
+          title: 'Practicality First',
+          description: 'Focus on sharing AI applications that truly solve real problems and improve work efficiency, rather than flashy technical demonstrations.',
+        },
+        {
+          title: 'Continuous Learning',
+          description: 'The AI field changes rapidly. I maintain enthusiasm for learning, experiencing new tools first-hand to filter truly valuable content for readers.',
+        },
+        {
+          title: 'Open Sharing',
+          description: 'Believe in the power of knowledge through sharing, enabling more people to benefit from AI technological progress through open and transparent communication.',
+        },
+      ]
+    }
+  />
+
+  <!-- Features2 Widget ************** -->
+  <Features2
+    title={lang === 'zh' ? '联系方式' : 'Contact Me'}
+    tagline={lang === 'zh' ? '保持联系' : 'Get in Touch'}
+    columns={2}
+    items={
+      lang === 'zh' ? [
+        {
+          title: '邮件联系',
+          description: '有任何问题或建议，欢迎通过邮件与我交流，我会尽快回复。',
+          icon: 'tabler:mail',
+        },
+        {
+          title: '社交媒体',
+          description: '关注我的社交媒体账号，获取最新的AI工具资讯和使用技巧分享。',
+          icon: 'tabler:brand-twitter',
+        },
+      ] : [
+        {
+          title: 'Email Contact',
+          description: 'Feel free to reach out via email with any questions or suggestions. I will respond as soon as possible.',
+          icon: 'tabler:mail',
+        },
+        {
+          title: 'Social Media',
+          description: 'Follow my social media accounts for the latest AI tool news and usage tips.',
+          icon: 'tabler:brand-twitter',
+        },
+      ]
+    }
+  />
+</Layout>

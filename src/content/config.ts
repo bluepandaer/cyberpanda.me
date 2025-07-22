@@ -61,6 +61,10 @@ const postCollection = defineCollection({
     tags: z.array(z.string()).optional(),
     author: z.string().optional(),
 
+    // Multi-language support
+    lang: z.enum(['zh', 'en']).default('zh'),
+    translationKey: z.string().optional(), // Used to link different language versions
+
     metadata: metadataDefinition(),
   }),
 });

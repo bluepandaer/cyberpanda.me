@@ -1,0 +1,86 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Headline from '~/components/blog/Headline.astro';
+import { languages } from '~/i18n/config';
+import { useTranslations } from '~/i18n/utils';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
+// Get all blog posts and filter by language
+const allPosts = await getCollection('post');
+const posts = allPosts.filter(post => 
+  post.data?.lang === lang || (!post.data?.lang && lang === 'zh')
+);
+
+const metadata = {
+  title: t('blog.title'),
+  description: t('blog.subtitle'),
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    type: 'blog',
+  },
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <section class="px-6 sm:px-6 py-12 sm:py-16 lg:py-20 mx-auto max-w-4xl">
+    <Headline
+      subtitle={t('blog.subtitle')}
+    >
+      {t('blog.title')}
+    </Headline>
+    
+    <div class="grid gap-6 md:gap-8">
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <article class="bg-white dark:bg-gray-900 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              <a href={`/${lang}/blog/${post.id.replace(/\.(md|mdx)$/, '')}`} class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                {post.data.title}
+              </a>
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-4">
+              {post.data.excerpt}
+            </p>
+            <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+              <time datetime={post.data.publishDate?.toISOString()}>
+                {t('blog.publishedOn')} {post.data.publishDate?.toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US')}
+              </time>
+              {post.data.category && (
+                <span class="bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 px-2 py-1 rounded">
+                  {post.data.category}
+                </span>
+              )}
+            </div>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-2 mt-3">
+                {post.data.tags.map((tag) => (
+                  <span class="text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-2 py-1 rounded">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </article>
+        ))
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            {t('blog.noPostsFound')}
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+</Layout>

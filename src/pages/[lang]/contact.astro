@@ -1,0 +1,124 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import HeroText from '~/components/widgets/HeroText.astro';
+import ContactUs from '~/components/widgets/Contact.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import { languages } from '~/i18n/config';
+import { useTranslations } from '~/i18n/utils';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
+const metadata = {
+  title: t('nav.contact'),
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <!-- HeroText Widget ******************* -->
+  <HeroText 
+    tagline={t('nav.contact')} 
+    title={lang === 'zh' ? '与我联系！' : "Let's Connect!"} 
+  />
+
+  <ContactUs
+    id="form"
+    title={lang === 'zh' ? '给我留言吧！' : 'Drop me a message today!'}
+    subtitle={
+      lang === 'zh' 
+        ? '如果您对AI工具有任何疑问，或者想要分享使用心得，欢迎与我交流。我会尽快回复您的消息。'
+        : 'If you have any questions about AI tools or want to share your experience, feel free to reach out. I will respond to your message as soon as possible.'
+    }
+    inputs={[
+      {
+        type: 'text',
+        name: 'name',
+        label: lang === 'zh' ? '姓名' : 'Name',
+      },
+      {
+        type: 'email',
+        name: 'email',
+        label: lang === 'zh' ? '邮箱' : 'Email',
+      },
+    ]}
+    textarea={{
+      label: lang === 'zh' ? '消息' : 'Message',
+    }}
+    disclaimer={{
+      label: lang === 'zh' 
+        ? '提交此联系表单即表示您同意收集您的个人信息用于回复目的。'
+        : 'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
+    }}
+    description={lang === 'zh' ? '我通常在24小时内回复消息。' : 'I typically respond within 24 business hours.'}
+  />
+
+  <!-- Features2 Widget ************** -->
+  <Features2
+    title={lang === 'zh' ? '我能为您提供帮助！' : 'I am here to help!'}
+    items={
+      lang === 'zh' ? [
+        {
+          title: 'AI工具咨询',
+          description: '关于ChatGPT、Claude、Midjourney等AI工具的使用技巧、功能介绍、应用场景等问题。',
+        },
+        {
+          title: '学习指导',
+          description: '为初学者提供AI工具学习路径规划，帮助您快速上手并掌握核心功能。',
+        },
+        {
+          title: '实战案例分享',
+          description: '分享真实的AI工具应用案例，帮助您更好地理解如何在实际工作中使用这些工具。',
+        },
+        {
+          title: '邮箱',
+          description: 'hello@cyberpanda.me',
+          icon: 'tabler:mail',
+        },
+        {
+          title: '社交媒体',
+          description: '@cyberpanda_ai',
+          icon: 'tabler:brand-twitter',
+        },
+        {
+          title: '基地',
+          description: '数字世界的某个角落',
+          icon: 'tabler:map-pin',
+        },
+      ] : [
+        {
+          title: 'AI Tool Consultation',
+          description: 'Questions about usage tips, features, and application scenarios for ChatGPT, Claude, Midjourney and other AI tools.',
+        },
+        {
+          title: 'Learning Guidance',
+          description: 'Provide AI tool learning path planning for beginners to help you get started quickly and master core functions.',
+        },
+        {
+          title: 'Practical Case Sharing',
+          description: 'Share real AI tool application cases to help you better understand how to use these tools in actual work.',
+        },
+        {
+          title: 'Email',
+          description: 'hello@cyberpanda.me',
+          icon: 'tabler:mail',
+        },
+        {
+          title: 'Social Media',
+          description: '@cyberpanda_ai',
+          icon: 'tabler:brand-twitter',
+        },
+        {
+          title: 'Base',
+          description: 'Somewhere in the digital world',
+          icon: 'tabler:map-pin',
+        },
+      ]
+    }
+  />
+</Layout>
