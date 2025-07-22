@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <defs>
+    <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#87CEEB" />
+      <stop offset="50%" stop-color="#4169E1" />
+      <stop offset="100%" stop-color="#191970" />
+    </linearGradient>
+    <linearGradient id="bellyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F0F8FF" />
+      <stop offset="100%" stop-color="#E6F3FF" />
+    </linearGradient>
+    <radialGradient id="eyeGradient" cx="50%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#87CEEB" />
+      <stop offset="100%" stop-color="#4169E1" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background with padding for Apple touch icon -->
+  <rect width="180" height="180" fill="#4169E1" rx="40" ry="40"/>
+  
+  <!-- Shadow -->
+  <ellipse cx="90" cy="155" rx="45" ry="8" fill="#000" opacity="0.2"/>
+  
+  <!-- Body -->
+  <ellipse cx="90" cy="120" rx="40" ry="45" fill="url(#bodyGradient)"/>
+  
+  <!-- Belly -->
+  <ellipse cx="90" cy="125" rx="25" ry="30" fill="url(#bellyGradient)"/>
+  
+  <!-- Head -->
+  <circle cx="90" cy="70" r="35" fill="url(#bodyGradient)"/>
+  
+  <!-- Ears -->
+  <circle cx="65" cy="50" r="12" fill="url(#bodyGradient)"/>
+  <circle cx="115" cy="50" r="12" fill="url(#bodyGradient)"/>
+  <circle cx="65" cy="50" r="6" fill="#191970"/>
+  <circle cx="115" cy="50" r="6" fill="#191970"/>
+  
+  <!-- Eyes -->
+  <circle cx="78" cy="65" r="8" fill="url(#eyeGradient)"/>
+  <circle cx="102" cy="65" r="8" fill="url(#eyeGradient)"/>
+  <circle cx="78" cy="65" r="4" fill="#191970"/>
+  <circle cx="102" cy="65" r="4" fill="#191970"/>
+  <circle cx="79" cy="63" r="2" fill="#FFF"/>
+  <circle cx="103" cy="63" r="2" fill="#FFF"/>
+  
+  <!-- Nose -->
+  <ellipse cx="90" cy="78" rx="4" ry="3" fill="#4169E1"/>
+  
+  <!-- Smile -->
+  <path d="M78 85 Q90 92 102 85" stroke="#191970" stroke-width="2" fill="none" stroke-linecap="round"/>
+  
+  <!-- Hair tuft -->
+  <path d="M90 25 L85 35 L90 30 L95 35 Z" fill="#87CEEB"/>
+  
+  <!-- Arms -->
+  <circle cx="50" cy="105" r="12" fill="url(#bodyGradient)"/>
+  <circle cx="130" cy="105" r="12" fill="url(#bodyGradient)"/>
+  
+  <!-- Legs -->
+  <circle cx="75" cy="150" r="10" fill="url(#bodyGradient)"/>
+  <circle cx="105" cy="150" r="10" fill="url(#bodyGradient)"/>
+</svg>
