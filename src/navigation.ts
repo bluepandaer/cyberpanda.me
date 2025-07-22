@@ -1,6 +1,6 @@
-import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import { getAsset } from './utils/permalinks';
 import { useTranslations } from './i18n/utils';
-import { ui, type Lang } from './i18n/config';
+import { type Lang } from './i18n/config';
 
 export function getHeaderData(lang: Lang) {
   const t = useTranslations(lang);
@@ -57,56 +57,53 @@ export const headerData = {
   actions: [{ text: 'Explore', href: '/zh/blog', variant: 'primary' }],
 };
 
+export function getFooterData(lang: Lang) {
+  const t = useTranslations(lang);
+  
+  return {
+    links: [
+      {
+        title: 'Navigation',
+        links: [
+          { text: t('nav.home'), href: `/${lang}` },
+          { text: t('nav.blog'), href: `/${lang}/blog` },
+          { text: t('nav.about'), href: `/${lang}/about` },
+          { text: t('nav.contact'), href: `/${lang}/contact` },
+        ],
+      },
+    ],
+    secondaryLinks: [
+      { text: lang === 'zh' ? '使用条款' : 'Terms', href: `/${lang}/terms` },
+      { text: lang === 'zh' ? '隐私政策' : 'Privacy Policy', href: `/${lang}/privacy` },
+    ],
+    socialLinks: [
+      { ariaLabel: 'X', icon: 'tabler:brand-x', href: 'https://twitter.com/cyberpanda_me' },
+      { ariaLabel: 'GitHub', icon: 'tabler:brand-github', href: 'https://github.com/yourusername' },
+      { ariaLabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://linkedin.com/in/yourprofile' },
+      { ariaLabel: 'RSS', icon: 'tabler:rss', href: getAsset('/rss.xml') },
+    ],
+    footNote: `
+      🐼 Made with ❤️ by <a class="text-blue-600 underline dark:text-muted" href="https://cyberpanda.me">CyberPanda</a> · All rights reserved.
+    `,
+  };
+}
+
+// Keep legacy export for compatibility
 export const footerData = {
   links: [
     {
-      title: 'Product',
+      title: 'Navigation',
       links: [
-        { text: 'Features', href: '#' },
-        { text: 'Security', href: '#' },
-        { text: 'Team', href: '#' },
-        { text: 'Enterprise', href: '#' },
-        { text: 'Customer stories', href: '#' },
-        { text: 'Pricing', href: '#' },
-        { text: 'Resources', href: '#' },
-      ],
-    },
-    {
-      title: 'Platform',
-      links: [
-        { text: 'Developer API', href: '#' },
-        { text: 'Partners', href: '#' },
-        { text: 'Atom', href: '#' },
-        { text: 'Electron', href: '#' },
-        { text: 'AstroWind Desktop', href: '#' },
-      ],
-    },
-    {
-      title: 'Support',
-      links: [
-        { text: 'Docs', href: '#' },
-        { text: 'Community Forum', href: '#' },
-        { text: 'Professional Services', href: '#' },
-        { text: 'Skills', href: '#' },
-        { text: 'Status', href: '#' },
-      ],
-    },
-    {
-      title: 'Company',
-      links: [
-        { text: 'About', href: '#' },
-        { text: 'Blog', href: '#' },
-        { text: 'Careers', href: '#' },
-        { text: 'Press', href: '#' },
-        { text: 'Inclusion', href: '#' },
-        { text: 'Social Impact', href: '#' },
-        { text: 'Shop', href: '#' },
+        { text: 'Home', href: '/zh/' },
+        { text: 'AI Tutorials', href: '/zh/blog' },
+        { text: 'About', href: '/zh/about' },
+        { text: 'Contact', href: '/zh/contact' },
       ],
     },
   ],
   secondaryLinks: [
-    { text: 'Terms', href: getPermalink('/terms') },
-    { text: 'Privacy Policy', href: getPermalink('/privacy') },
+    { text: '使用条款', href: '/zh/terms' },
+    { text: '隐私政策', href: '/zh/privacy' },
   ],
   socialLinks: [
     { ariaLabel: 'X', icon: 'tabler:brand-x', href: 'https://twitter.com/cyberpanda_me' },
