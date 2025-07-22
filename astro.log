@@ -1,0 +1,171 @@
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+
+> @onwidget/astrowind@1.0.0-beta.52 dev
+> astro dev
+
+11:30:24 [astrowind] Astrowind `./src/config.yaml` has been loaded.
+11:30:24 [WARN] [config] This project contains server-rendered routes, but no adapter is installed. This is fine for development, but an adapter will be required to build your site for production.
+11:30:24 [types] Generated 1ms
+11:30:24 [content] Syncing content
+11:30:24 [content] Synced content
+
+ astro  v5.7.3 ready in 835 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+11:30:24 watching for file changes...
+Found 10 posts
+Language zh: 8 posts
+Added path: /zh/blog/astrowind-template-in-depth (from astrowind-template-in-depth)
+Added path: /zh/blog/markdown-elements-demo-post (from markdown-elements-demo-post)
+Added path: /zh/blog/how-to-customize-astrowind-to-your-brand (from how-to-customize-astrowind-to-your-brand)
+Added path: /zh/blog/landing (from landing)
+Added path: /zh/blog/get-started-website-with-astro-tailwind-css (from get-started-website-with-astro-tailwind-css)
+Added path: /zh/blog/useful-resources-to-create-websites (from useful-resources-to-create-websites)
+Added path: /zh/blog/claude-ai-comprehensive-guide-zh (from claude-ai-comprehensive-guide-zh)
+Added path: /zh/blog/chatgpt-mastery-guide-zh (from chatgpt-mastery-guide-zh)
+Language en: 2 posts
+Added path: /en/blog/claude-ai-comprehensive-guide-en (from claude-ai-comprehensive-guide-en)
+Added path: /en/blog/chatgpt-mastery-guide-en (from chatgpt-mastery-guide-en)
+Generated 10 blog post paths total
+11:30:40 [ERROR] post.render is not a function
+  Stack trace:
+    at /Users/panda/Documents/01ActMap/Solopreneur/CyberPanda/cyberpanda.me/src/pages/[lang]/blog/[slug].astro:56:32
+    [...] See full stack trace in the browser, or rerun with --verbose.
+Found 10 posts
+Language zh: 8 posts
+Added path: /zh/blog/astrowind-template-in-depth (from astrowind-template-in-depth)
+Added path: /zh/blog/markdown-elements-demo-post (from markdown-elements-demo-post)
+Added path: /zh/blog/how-to-customize-astrowind-to-your-brand (from how-to-customize-astrowind-to-your-brand)
+Added path: /zh/blog/landing (from landing)
+Added path: /zh/blog/get-started-website-with-astro-tailwind-css (from get-started-website-with-astro-tailwind-css)
+Added path: /zh/blog/useful-resources-to-create-websites (from useful-resources-to-create-websites)
+Added path: /zh/blog/claude-ai-comprehensive-guide-zh (from claude-ai-comprehensive-guide-zh)
+Added path: /zh/blog/chatgpt-mastery-guide-zh (from chatgpt-mastery-guide-zh)
+Language en: 2 posts
+Added path: /en/blog/claude-ai-comprehensive-guide-en (from claude-ai-comprehensive-guide-en)
+Added path: /en/blog/chatgpt-mastery-guide-en (from chatgpt-mastery-guide-en)
+Generated 10 blog post paths total
+11:30:59 [200] /zh/blog/chatgpt-mastery-guide-zh 66ms
+11:31:00 [ERROR] [NoMatchingRenderer] Unable to render `Content`.
+
+No valid renderer was found for this file extension.
+  Hint:
+    Did you mean to enable the `@astrojs/react`, `@astrojs/preact`, `@astrojs/solid-js`, `@astrojs/vue` or `@astrojs/svelte` integration?
+    
+    See https://docs.astro.build/en/guides/framework-components/ for more information on how to install and configure integrations.
+  Error reference:
+    https://docs.astro.build/en/reference/errors/no-matching-renderer/
+  Stack trace:
+    at /Users/panda/Documents/01ActMap/Solopreneur/CyberPanda/cyberpanda.me/node_modules/astro/dist/runtime/server/render/component.js:175:15
+    [...] See full stack trace in the browser, or rerun with --verbose.
+15:37:04 [200] /zh 71ms
+Vim: Warning: Output is not to a terminal
+Vim: Warning: Input is not from a terminal
+[?1049h[>4;2m[?1h=[?2004h[?1004h[1;24r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?2004l[>4;m[?2004h[>4;2m[?25l[24;1H<nda/cyberpanda.me/node_modules/astro/dist/runtime/server/render/component.js"[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m<da.me/node_modules/astro/dist/runtime/server/render/component.js" 432L, 15092B[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[1;1Himport { createRenderInstruction } from "./instruction.js";
+import { clsx } from "clsx";
+import { AstroError, AstroErrorData } from "../../../core/errors/index.js";
+import { markHTMLString } from "../escape.js";
+import { extractDirectives, generateHydrateScript } from "../hydration.js";
+import { serializeProps } from "../serialize.js";
+import { shorthash } from "../shorthash.js";
+import { isPromise } from "../util.js";
+import { isAstroComponentFactory } from "./astro/factory.js";
+import { renderTemplate } from "./astro/index.js";
+import { createAstroComponentInstance } from "./astro/instance.js";
+import {
+  Fragment,
+  Renderer,
+  chunkToString
+} from "./common.js";
+import { componentIsHTMLElement, renderHTMLElement } from "./dom.js";
+import { maybeRenderHead } from "./head.js";
+import { containsServerDirective, renderServerIsland } from "./server-islands.jss[20;1H";
+import { renderSlotToString, renderSlots } from "./slot.js";
+import { formatList, internalSpreadAttributes, renderElement, voidElementNames }}[23;1H from "./util.js";[1;1H[?25h[?4m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[?2004l[>4;m[?2004h[>4;2m[24;1H[?2004l[>4;m[?1004l[?2004l[?1l>[?1049l[>4;mVim: Error reading input, exiting...
+Vim: Finished.
+[24;1H[23;2t[23;1t
+
+Could not open component.js in the editor.
+The editor process exited with an error: (code 1).
+
+15:37:20 [200] /zh 11ms
+15:37:23 [200] /zh/blog 11ms
+15:37:23 [200] /zh/blog 8ms
+15:37:28 [200] /en/blog 13ms
+15:37:29 [200] /en/blog 7ms
+15:37:32 [200] /zh/blog 24ms
+Found 10 posts
+Language zh: 8 posts
+Added path: /zh/blog/astrowind-template-in-depth (from astrowind-template-in-depth)
+Added path: /zh/blog/markdown-elements-demo-post (from markdown-elements-demo-post)
+Added path: /zh/blog/how-to-customize-astrowind-to-your-brand (from how-to-customize-astrowind-to-your-brand)
+Added path: /zh/blog/landing (from landing)
+Added path: /zh/blog/get-started-website-with-astro-tailwind-css (from get-started-website-with-astro-tailwind-css)
+Added path: /zh/blog/useful-resources-to-create-websites (from useful-resources-to-create-websites)
+Added path: /zh/blog/claude-ai-comprehensive-guide-zh (from claude-ai-comprehensive-guide-zh)
+Added path: /zh/blog/chatgpt-mastery-guide-zh (from chatgpt-mastery-guide-zh)
+Language en: 2 posts
+Added path: /en/blog/claude-ai-comprehensive-guide-en (from claude-ai-comprehensive-guide-en)
+Added path: /en/blog/chatgpt-mastery-guide-en (from chatgpt-mastery-guide-en)
+Generated 10 blog post paths total
+15:37:37 [WARN] [router] A `getStaticPaths()` route pattern was matched, but no matching static path was found for requested path `/zh/blog/undefined`.
+
+Possible dynamic routes being matched: src/pages/[lang]/blog/[slug].astro, src/pages/[...blog]/[category]/[...page].astro, src/pages/[...blog]/[tag]/[...page].astro, src/pages/[...blog]/[...page].astro, src/pages/[...blog]/index.astro.
+15:37:37 [404] /zh/blog/undefined 5ms
+15:37:37 [WARN] [router] A `getStaticPaths()` route pattern was matched, but no matching static path was found for requested path `/zh/blog/undefined`.
+
+Possible dynamic routes being matched: src/pages/[lang]/blog/[slug].astro, src/pages/[...blog]/[category]/[...page].astro, src/pages/[...blog]/[tag]/[...page].astro, src/pages/[...blog]/[...page].astro, src/pages/[...blog]/index.astro.
+15:37:37 [404] /zh/blog/undefined 3ms
+15:37:39 [302] / 3ms
+15:37:39 [200] /zh 7ms
+15:37:39 [302] / 4ms
+15:37:39 [200] /zh 19ms
+16:09:11 [watch] src/pages/[lang]/blog/[slug].astro
+16:09:11 [watch] src/pages/[lang]/blog/[slug].astro
+16:09:12 [200] /zh 79ms
+16:09:29 [watch] src/pages/[lang]/blog/[slug].astro
+16:09:29 [watch] src/pages/[lang]/blog/[slug].astro
+16:09:29 [200] /zh 77ms
+16:09:55 [watch] src/pages/[lang]/blog/[slug].astro
+16:09:55 [watch] src/pages/[lang]/blog/[slug].astro
+16:09:55 [200] /zh 56ms
+16:10:17 [watch] src/pages/[lang]/blog/[slug].astro
+16:10:17 [watch] src/pages/[lang]/blog/[slug].astro
+16:10:18 [200] /zh 67ms
+Found 10 posts
+Language zh: 8 posts
+Added path: /zh/blog/astrowind-template-in-depth (from astrowind-template-in-depth)
+Added path: /zh/blog/markdown-elements-demo-post (from markdown-elements-demo-post)
+Added path: /zh/blog/how-to-customize-astrowind-to-your-brand (from how-to-customize-astrowind-to-your-brand)
+Added path: /zh/blog/landing (from landing)
+Added path: /zh/blog/get-started-website-with-astro-tailwind-css (from get-started-website-with-astro-tailwind-css)
+Added path: /zh/blog/useful-resources-to-create-websites (from useful-resources-to-create-websites)
+Added path: /zh/blog/claude-ai-comprehensive-guide-zh (from claude-ai-comprehensive-guide-zh)
+Added path: /zh/blog/chatgpt-mastery-guide-zh (from chatgpt-mastery-guide-zh)
+Language en: 2 posts
+Added path: /en/blog/claude-ai-comprehensive-guide-en (from claude-ai-comprehensive-guide-en)
+Added path: /en/blog/chatgpt-mastery-guide-en (from chatgpt-mastery-guide-en)
+Generated 10 blog post paths total
+16:10:24 [200] /zh/blog/chatgpt-mastery-guide-zh 9ms
+16:10:24 [ERROR] Unable to render Content because it is undefined!
+Did you forget to import the component or is it possible there is a typo?
+  Stack trace:
+    at /Users/panda/Documents/01ActMap/Solopreneur/CyberPanda/cyberpanda.me/node_modules/astro/dist/runtime/server/render/component.js:60:11
+    [...] See full stack trace in the browser, or rerun with --verbose.
+16:13:35 [watch] src/pages/[lang]/blog/[slug].astro
+16:13:35 [watch] src/pages/[lang]/blog/[slug].astro
+16:13:36 [200] /zh 57ms
+16:13:52 [watch] src/pages/[lang]/blog/[slug].astro
+16:13:52 [watch] src/pages/[lang]/blog/[slug].astro
+16:13:52 [200] /zh 70ms
+16:14:20 [watch] src/pages/[lang]/blog/index.astro
+16:14:20 [watch] src/pages/[lang]/blog/index.astro
+16:14:20 [200] /zh 66ms
+16:26:45 [watch] src/pages/[lang]/blog/[slug].astro
+16:26:45 [watch] src/pages/[lang]/blog/[slug].astro
+16:26:46 [200] /zh 58ms
+16:27:01 [watch] src/pages/[lang]/blog/index.astro
+16:27:01 [watch] src/pages/[lang]/blog/index.astro
+16:27:02 [200] /zh 84ms

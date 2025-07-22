@@ -1,0 +1,150 @@
+---
+import { languages } from '~/i18n/config';
+import { useTranslations } from '~/i18n/utils';
+import Layout from '~/layouts/PageLayout.astro';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
+const metadata = {
+  title: lang === 'zh' ? '隐私政策' : 'Privacy Policy',
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <div class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold mb-8 text-center">
+      {lang === 'zh' ? '隐私政策' : 'Privacy Policy'}
+    </h1>
+    
+    <div class="prose max-w-none dark:prose-invert">
+      {lang === 'zh' ? (
+        <>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">
+            最后更新：2024年1月15日
+          </p>
+
+          <h2>概述</h2>
+          <p>
+            CyberPanda（以下简称"我们"）重视您的隐私保护。本隐私政策说明了我们如何收集、使用和保护您在使用我们的服务时提供的信息。
+          </p>
+
+          <h2>信息收集</h2>
+          <h3>我们收集的信息类型</h3>
+          <ul>
+            <li><strong>访问数据</strong>：包括IP地址、浏览器类型、访问时间、页面访问记录等</li>
+            <li><strong>联系信息</strong>：当您主动联系我们时提供的邮箱地址和其他联系方式</li>
+            <li><strong>Cookie</strong>：用于改善用户体验的小型数据文件</li>
+          </ul>
+
+          <h2>信息使用</h2>
+          <p>我们使用收集的信息用于：</p>
+          <ul>
+            <li>提供和改善我们的服务</li>
+            <li>回复您的咨询和问题</li>
+            <li>分析网站使用情况以优化用户体验</li>
+            <li>确保网站安全和防止滥用</li>
+          </ul>
+
+          <h2>信息保护</h2>
+          <p>
+            我们采取合理的技术和管理措施来保护您的个人信息安全。但请注意，没有任何互联网传输或电子存储方法是100%安全的。
+          </p>
+
+          <h2>第三方服务</h2>
+          <p>
+            我们的网站可能包含指向第三方网站的链接。我们不对这些第三方网站的隐私做法负责，建议您查阅它们的隐私政策。
+          </p>
+
+          <h2>Cookie政策</h2>
+          <p>
+            我们使用Cookie来改善您的浏览体验。您可以通过浏览器设置来控制或禁用Cookie，但这可能会影响网站的某些功能。
+          </p>
+
+          <h2>儿童隐私</h2>
+          <p>
+            我们的服务不面向13岁以下儿童。如果我们发现在未获得父母同意的情况下收集了13岁以下儿童的个人信息，我们会立即删除这些信息。
+          </p>
+
+          <h2>隐私政策更新</h2>
+          <p>
+            我们可能会不时更新本隐私政策。任何更改将在此页面上发布，重大更改我们会通过其他方式通知您。
+          </p>
+
+          <h2>联系我们</h2>
+          <p>如果您对本隐私政策有任何问题，请通过以下方式联系我们：</p>
+          <ul>
+            <li>邮箱：hello@cyberpanda.me</li>
+            <li>社交媒体：@cyberpanda_me</li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">
+            Last updated: January 15, 2024
+          </p>
+
+          <h2>Overview</h2>
+          <p>
+            CyberPanda (referred to as "we") values your privacy protection. This privacy policy explains how we collect, use, and protect the information you provide when using our services.
+          </p>
+
+          <h2>Information Collection</h2>
+          <h3>Types of Information We Collect</h3>
+          <ul>
+            <li><strong>Access Data</strong>: Including IP address, browser type, access time, page visit records, etc.</li>
+            <li><strong>Contact Information</strong>: Email addresses and other contact information provided when you contact us</li>
+            <li><strong>Cookies</strong>: Small data files used to improve user experience</li>
+          </ul>
+
+          <h2>Information Usage</h2>
+          <p>We use the collected information to:</p>
+          <ul>
+            <li>Provide and improve our services</li>
+            <li>Respond to your inquiries and questions</li>
+            <li>Analyze website usage to optimize user experience</li>
+            <li>Ensure website security and prevent abuse</li>
+          </ul>
+
+          <h2>Information Protection</h2>
+          <p>
+            We take reasonable technical and administrative measures to protect your personal information security. However, please note that no Internet transmission or electronic storage method is 100% secure.
+          </p>
+
+          <h2>Third-Party Services</h2>
+          <p>
+            Our website may contain links to third-party websites. We are not responsible for the privacy practices of these third-party websites and recommend that you review their privacy policies.
+          </p>
+
+          <h2>Cookie Policy</h2>
+          <p>
+            We use cookies to improve your browsing experience. You can control or disable cookies through your browser settings, but this may affect certain website functions.
+          </p>
+
+          <h2>Children's Privacy</h2>
+          <p>
+            Our services are not directed at children under 13. If we discover that we have collected personal information from children under 13 without parental consent, we will immediately delete such information.
+          </p>
+
+          <h2>Privacy Policy Updates</h2>
+          <p>
+            We may update this privacy policy from time to time. Any changes will be posted on this page, and we will notify you of significant changes through other means.
+          </p>
+
+          <h2>Contact Us</h2>
+          <p>If you have any questions about this privacy policy, please contact us:</p>
+          <ul>
+            <li>Email: hello@cyberpanda.me</li>
+            <li>Social Media: @cyberpanda_me</li>
+          </ul>
+        </>
+      )}
+    </div>
+  </div>
+</Layout>

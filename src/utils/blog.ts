@@ -55,6 +55,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     author,
     draft = false,
     metadata = {},
+    lang,
   } = data;
 
   const slug = cleanSlug(id); // cleanSlug(rawSlug.split('/').pop());
@@ -92,6 +93,7 @@ const getNormalizedPost = async (post: CollectionEntry<'post'>): Promise<Post> =
     draft: draft,
 
     metadata,
+    lang,
 
     Content: Content,
     // or 'content' in case you consume from API
@@ -166,11 +168,16 @@ export const findPostsByIds = async (ids: Array<string>): Promise<Array<Post>> =
 };
 
 /** */
-export const findLatestPosts = async ({ count }: { count?: number }): Promise<Array<Post>> => {
+export const findLatestPosts = async ({ count, lang }: { count?: number; lang?: string }): Promise<Array<Post>> => {
   const _count = count || 4;
   const posts = await fetchPosts();
 
-  return posts ? posts.slice(0, _count) : [];
+  let filteredPosts = posts;
+  if (lang) {
+    filteredPosts = posts.filter((post) => post.lang === lang || (!post.lang && lang === 'zh'));
+  }
+
+  return filteredPosts ? filteredPosts.slice(0, _count) : [];
 };
 
 /** */

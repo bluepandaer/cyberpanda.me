@@ -6,7 +6,6 @@ import Note from '~/components/widgets/Note.astro';
 import Features from '~/components/widgets/Features.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import Steps from '~/components/widgets/Steps.astro';
-import Content from '~/components/widgets/Content.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import Stats from '~/components/widgets/Stats.astro';
@@ -14,6 +13,7 @@ import CallToAction from '~/components/widgets/CallToAction.astro';
 
 import { languages } from '~/i18n/config';
 import { useTranslations, getLangFromUrl } from '~/i18n/utils';
+import { getAsset } from '~/utils/permalinks';
 
 export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({
@@ -43,7 +43,7 @@ const metadata = {
       },
       { 
         text: t('hero.cta.subscribe'), 
-        href: `/${lang}/contact` 
+        href: getAsset('/rss.xml')
       },
     ]}
     image={{ src: '~/assets/images/hero-image.png', alt: 'CyberPanda Hero Image' }}
@@ -144,56 +144,6 @@ const metadata = {
     }
   />
 
-  <!-- Content Widget **************** -->
-  <Content
-    isReversed
-    tagline={lang === 'zh' ? '专业指南' : 'Expert Guide'}
-    title={lang === 'zh' ? 'CyberPanda：让AI成为你的超能力！' : 'CyberPanda: Make AI Your Superpower!'}
-    items={
-      lang === 'zh' ? [
-        {
-          title: '基于Astro 5.0构建',
-          description: '采用现代静态网站生成器，确保快速加载和优秀的用户体验。',
-        },
-        {
-          title: 'Tailwind CSS样式',
-          description: '使用流行的实用程序优先CSS框架，实现快速设计和一致的样式。',
-        },
-        {
-          title: '跨浏览器兼容',
-          description: '确保网站在各种浏览器中的外观和功能一致，为所有用户提供无缝体验。',
-        },
-      ] : [
-        {
-          title: 'Built on Astro 5.0',
-          description: 'Using modern static site generator for fast loading and excellent user experience.',
-        },
-        {
-          title: 'Styled with Tailwind CSS',
-          description: 'Using popular utility-first CSS framework for rapid design and consistent styling.',
-        },
-        {
-          title: 'Cross-browser Compatible',
-          description: 'Ensuring consistent appearance and functionality across various browsers for all users.',
-        },
-      ]
-    }
-    image={{
-      src: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      alt: 'AI Technology Image',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        {lang === 'zh' ? '构建在现代技术基础上' : 'Building on Modern Foundations'}
-      </h3>
-      {lang === 'zh' ? '通过融合行业领先实践获得竞争优势' : 'Gain competitive advantage by incorporating industry-leading practices'}
-    </Fragment>
-
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
 
   <!-- BlogLatestPosts Widget ******* -->
   <BlogLatestPosts
@@ -203,6 +153,7 @@ const metadata = {
         ? '博客用于分享最新的AI工具使用技巧和行业趋势。每一篇新文章都将是你成为AI专家路上的重要一步，涵盖ChatGPT、Claude、Midjourney等热门工具的实战指南。'
         : 'The blog is used to share the latest AI tool tips and industry trends. Each new article will be an important step on your journey to becoming an AI expert, covering practical guides for popular tools like ChatGPT, Claude, Midjourney and more.'
     }
+    lang={lang}
   />
 
   <!-- Stats Widget ****************** -->

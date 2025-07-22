@@ -2,9 +2,8 @@
 import Layout from '~/layouts/Layout.astro';
 import Header from '~/components/widgets/Header.astro';
 import Footer from '~/components/widgets/Footer.astro';
-import Announcement from '~/components/widgets/Announcement.astro';
 
-import { getHeaderData, footerData } from '~/navigation';
+import { getHeaderData, getFooterData } from '~/navigation';
 import { getLangFromUrl } from '~/i18n/utils';
 
 import type { MetaData } from '~/types';
@@ -17,12 +16,13 @@ export interface Props {
 const { metadata, lang } = Astro.props;
 const currentLang = lang || getLangFromUrl(Astro.url);
 const headerData = getHeaderData(currentLang);
+const footerData = getFooterData(currentLang);
 ---
 
 <Layout metadata={metadata}>
-  <slot name="announcement">
+  <!-- <slot name="announcement">
     <Announcement />
-  </slot>
+  </slot> -->
   <slot name="header">
     <Header {...headerData} isSticky showRssFeed showToggleTheme showLanguagePicker lang={currentLang} />
   </slot>

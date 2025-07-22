@@ -1,0 +1,134 @@
+---
+import { languages } from '~/i18n/config';
+import { useTranslations } from '~/i18n/utils';
+import Layout from '~/layouts/PageLayout.astro';
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({
+    params: { lang }
+  }));
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang);
+
+const metadata = {
+  title: lang === 'zh' ? '使用条款' : 'Terms of Service',
+};
+---
+
+<Layout metadata={metadata} lang={lang}>
+  <div class="max-w-4xl mx-auto px-4 py-16">
+    <h1 class="text-4xl font-bold mb-8 text-center">
+      {lang === 'zh' ? '使用条款' : 'Terms of Service'}
+    </h1>
+    
+    <div class="prose max-w-none dark:prose-invert">
+      {lang === 'zh' ? (
+        <>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">
+            最后更新：2024年1月15日
+          </p>
+
+          <h2>使用协议</h2>
+          <p>
+            欢迎使用CyberPanda网站。通过访问和使用本网站，您同意遵守以下使用条款。如果您不同意这些条款，请不要使用本网站。
+          </p>
+
+          <h2>网站内容</h2>
+          <p>
+            本网站提供的内容仅供信息和教育目的。我们努力确保信息的准确性和时效性，但不对内容的完整性、准确性或适用性做出保证。
+          </p>
+
+          <h2>知识产权</h2>
+          <p>
+            本网站上的所有原创内容，包括但不限于文章、图片、代码示例等，均受版权保护。未经许可，不得复制、分发或商业使用。
+          </p>
+
+          <h2>用户责任</h2>
+          <p>用户在使用本网站时应当：</p>
+          <ul>
+            <li>遵守相关法律法规</li>
+            <li>不进行任何可能损害网站安全的行为</li>
+            <li>不发布违法、有害或不当的内容</li>
+            <li>尊重他人的知识产权</li>
+          </ul>
+
+          <h2>免责声明</h2>
+          <p>
+            在法律允许的最大范围内，CyberPanda不对因使用本网站而产生的任何直接、间接、偶然或后果性损害承担责任。
+          </p>
+
+          <h2>外部链接</h2>
+          <p>
+            本网站可能包含指向第三方网站的链接。这些链接仅为方便用户提供，我们不对链接网站的内容或隐私做法负责。
+          </p>
+
+          <h2>条款修改</h2>
+          <p>
+            我们保留随时修改这些使用条款的权利。修改后的条款将在本页面上发布，继续使用网站即表示您接受修改后的条款。
+          </p>
+
+          <h2>联系信息</h2>
+          <p>如果您对这些使用条款有任何问题，请联系我们：</p>
+          <ul>
+            <li>邮箱：hello@cyberpanda.me</li>
+            <li>社交媒体：@cyberpanda_me</li>
+          </ul>
+        </>
+      ) : (
+        <>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-8">
+            Last updated: January 15, 2024
+          </p>
+
+          <h2>Terms of Use</h2>
+          <p>
+            Welcome to the CyberPanda website. By accessing and using this website, you agree to comply with the following terms of use. If you do not agree with these terms, please do not use this website.
+          </p>
+
+          <h2>Website Content</h2>
+          <p>
+            The content provided on this website is for informational and educational purposes only. We strive to ensure the accuracy and timeliness of information, but make no warranties regarding the completeness, accuracy, or applicability of the content.
+          </p>
+
+          <h2>Intellectual Property</h2>
+          <p>
+            All original content on this website, including but not limited to articles, images, code examples, etc., is protected by copyright. No copying, distribution, or commercial use is permitted without permission.
+          </p>
+
+          <h2>User Responsibilities</h2>
+          <p>Users should when using this website:</p>
+          <ul>
+            <li>Comply with relevant laws and regulations</li>
+            <li>Not engage in any behavior that may harm website security</li>
+            <li>Not publish illegal, harmful, or inappropriate content</li>
+            <li>Respect others' intellectual property rights</li>
+          </ul>
+
+          <h2>Disclaimer</h2>
+          <p>
+            To the maximum extent permitted by law, CyberPanda assumes no responsibility for any direct, indirect, incidental, or consequential damages arising from the use of this website.
+          </p>
+
+          <h2>External Links</h2>
+          <p>
+            This website may contain links to third-party websites. These links are provided for user convenience only, and we are not responsible for the content or privacy practices of linked websites.
+          </p>
+
+          <h2>Terms Modification</h2>
+          <p>
+            We reserve the right to modify these terms of use at any time. Modified terms will be posted on this page, and continued use of the website constitutes acceptance of the modified terms.
+          </p>
+
+          <h2>Contact Information</h2>
+          <p>If you have any questions about these terms of use, please contact us:</p>
+          <ul>
+            <li>Email: hello@cyberpanda.me</li>
+            <li>Social Media: @cyberpanda_me</li>
+          </ul>
+        </>
+      )}
+    </div>
+  </div>
+</Layout>

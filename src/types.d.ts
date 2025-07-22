@@ -34,6 +34,9 @@ export interface Post {
   metadata?: MetaData;
 
   /**  */
+  lang?: string;
+
+  /**  */
   draft?: boolean;
 
   /**  */
